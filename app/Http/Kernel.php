@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'isWaiter' => \App\Http\Middleware\isWaiter::class,
         'isKasir' => \App\Http\Middleware\isKasir::class,
         'isOwner' => \App\Http\Middleware\isOwner::class,
+        'checkIp' => \App\Http\Middleware\CheckIpMiddleware::class,
     ];
 
     /**

@@ -6,19 +6,29 @@
   <title>@yield('title')</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --}}
+  <link rel="stylesheet" href="{{asset('../assets/css/bootstrap.css')}}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="{{asset('../node_modules/jqvmap/dist/jqvmap.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('../node_modules/jqvmap/dist/jqvmap.min.css')}}">
   <link rel="stylesheet" href="{{asset('../node_modules/summernote/dist/summernote-bs4.css')}}">
   <link rel="stylesheet" href="{{asset('../node_modules/owl.carousel/dist/assets/owl.carousel.min.css')}}">
-  <link rel="stylesheet" href="{{asset('../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css')}}">
-
+  <link rel="stylesheet" href="{{asset('../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css')}}"> --}}
+  {{-- DataTable --}}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    
+  <script src="{{asset('assets/sweetalert2/sweetalert2.min.js')}}"></script>
+  <link rel="stylesheet" href="{{asset('assets/sweetalert2/sweetalert2.min.css')}}">
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('../assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('../assets/css/components.css')}}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+  {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> --}}
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"> --}}
+  <meta name="csrf-token" content="{{csrf_token()}}">
+
 </head>
 
 <body>

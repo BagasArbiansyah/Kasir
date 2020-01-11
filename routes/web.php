@@ -18,58 +18,56 @@ Route::get('/', function () {
 Auth::routes();
 
 $main_admin_route = function(){
-    Route::get('/', 'AdminController@index')->name('admin');
-    Route::get('/entrimeja/create', 'AdminController@create');
-    Route::post('/', 'AdminController@store');
-    Route::get('/entrimeja/{order}/edit', 'AdminController@edit');
-    Route::post('/entrimeja/{order}', 'AdminController@update');
-    Route::delete('/entrimeja/{order}', 'AdminController@destroy');
+    Route::get('/', 'Admin\AdminController@index')->name('admin');
+    Route::get('/entrimeja/create', 'Admin\AdminController@create');
+    Route::post('/', 'Admin\AdminController@store');
+    Route::get('/entrimeja/{order}/edit', 'Admin\AdminController@edit');
+    Route::post('/entrimeja/{order}', 'Admin\AdminController@update');
+    Route::delete('/entrimeja/{order}', 'Admin\AdminController@destroy');
     
-    Route::get('/entribarang', 'Admin2Controller@index')->name('admin.ebarang');
-    Route::get('/entribarang/create', 'Admin2Controller@create');
-    Route::post('/entribarang', 'Admin2Controller@store');
-    Route::get('/entribarang/{masakan}/edit', 'Admin2Controller@edit');
-    Route::post('/entribarang/{masakan}', 'Admin2Controller@update');
-    Route::delete('/entribarang/{masakan}', 'Admin2Controller@destroy');
+    Route::get('/entribarang', 'Admin\Admin2Controller@index')->name('admin.ebarang');
+    Route::get('/entribarang/create', 'Admin\Admin2Controller@create');
+    Route::post('/entribarang', 'Admin\Admin2Controller@store');
+    Route::get('/entribarang/{masakan}/edit', 'Admin\Admin2Controller@edit');
+    Route::post('/entribarang/{masakan}', 'Admin\Admin2Controller@update');
+    Route::delete('/entribarang/{masakan}', 'Admin\Admin2Controller@destroy');
 
 };
 Route::group(['middleware'=>'isAdmin', 'prefix'=>'admin'], $main_admin_route);
 
 $main_waiter_route = function(){
-    Route::get('/', 'WaiterController@index')->name('waiter');
-    Route::get('/create', 'WaiterController@create');
-    Route::post('/', 'WaiterController@store');
-    Route::get('/{masakan}/edit', 'WaiterController@edit');
-    Route::post('/{masakan}', 'WaiterController@update');
-    Route::delete('/{masakan}', 'WaiterController@destroy');
-
-    Route::get('/order', 'OrderController@index')->name('waiter.order');
-    Route::get('/order/create', 'OrderController@create');
-    Route::post('/order', 'OrderController@store');
-    Route::get('/order/{order}/edit', 'OrderController@edit');
-    Route::post('/order/{order}', 'OrderController@update');
-    Route::delete('/order/{order}', 'OrderController@destroy');
+    //waiter order
+    Route::get('/', 'Waiter\WaiterController@index')->name('waiter');
+    Route::get('/create', 'Waiter\WaiterController@create');
+    Route::post('/', 'Waiter\WaiterController@store');
+    Route::get('/{id}/edit', 'Waiter\WaiterController@edit');
+    Route::put('/{id}', 'Waiter\WaiterController@update');
+    Route::get('/{id}', 'Waiter\WaiterController@destroy');
 };
 Route::group(['middleware' => 'isWaiter', 'prefix'=>'waiter'], $main_waiter_route);
 
 $main_kasir_route = function(){
-    Route::get('/', 'KasirController@index')->name('kasir');
-    Route::get('/create', 'KasirController@create');
-    Route::post('/', 'KasirController@store');
-    Route::get('/{transaksi}/edit', 'KasirController@edit');
-    Route::post('/{transaksi}', 'KasirController@update');
-    Route::delete('/{transaksi}', 'KasirController@destroy');
-    Route::get('/cari', 'KasirController@cari');
+    Route::get('/', 'Kasir\KasirController@index')->name('kasir');
+    Route::get('/create', 'Kasir\KasirController@create');
+    Route::post('/', 'Kasir\KasirController@store');
+    Route::get('/{id_transaksi}/edit', 'Kasir\KasirController@edit');
+    Route::any('/{id_transaksi}', 'Kasir\KasirController@update');
+    Route::delete('/{id_transaksi}', 'Kasir\KasirController@destroy');
+    Route::get('get/details/{id_detail_order}', 'Kasir\KasirController@getDetails')->name('getDetails');
+    Route::get('/json/kasir', 'Kasir\KasirController@jsonKasir')->name('json/kasir');
 };
 Route::group(['middleware' => 'isKasir', 'prefix'=>'kasir'], $main_kasir_route);
 
+$main_owner_route = function(){
+    Route::get('/', 'Owner\OwnerController@index')->name('owner');
+    Route::get('/json/owner', 'Owner\OwnerController@jsonOwner')->name('json/owner');
+    Route::get('/export_excel', 'Owner\OwnerController@export_excel');
+    Route::get('/export_excelview', 'Owner\OwnerController@export_excelview');
+};
+Route::group(['middleware' => 'isOwner', 'prefix'=>'owner'], $main_owner_route);
 
-Route::get('/owner', 'OwnerController@index')->name('owner')->middleware('isOwner');
-// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('my-web', ['middleware' => ['checkIp'], function () {
+//     return view('test');
+// }]);
 
 Auth::routes();
-// Route::get('/admin/eorder', 'AdminController@eorder')->name('admin.eorder');
-// Route::get('/admin/etransaksi', 'AdminController@etransaksi')->name('admin.etransaksi');
-
-
-// Route::get('/home', 'HomeController@index')->name('home');

@@ -23,7 +23,7 @@
                           <th scope="col">Id Order</th>
                           <th scope="col">No_Meja</th>
                           <th scope="col">Tanggal</th>
-                          <th scope="col">Id User</th>
+                          {{-- <th scope="col">Id User</th> --}}
                           <th scope="col">Keterangan</th>
                           <th scope="col">Status Order</th>
                           <th scope="col">Aksi</th>
@@ -34,7 +34,7 @@
                           <td>{{ $key + 1}}</td>
                           <td>{{ $ord->no_meja }}</td>    
                           <td>{{ $ord->tanggal }}</td>    
-                          <td>{{ $ord->id_user }}</td>    
+                          {{-- <td>{{ $ord->id_user }}</td> --}}
                           <td>{{ $ord->keterangan }}</td>
                           <td>{{ $ord->status_order }}</td>    
                           <td>

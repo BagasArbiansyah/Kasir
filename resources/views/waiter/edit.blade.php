@@ -3,7 +3,7 @@
 @section('sidebar')
 <ul class="sidebar-menu">
     <li class="menu-header">Dashboard</li>
-    <li><a class="nav-link" href="/waiter"><i class="far fa-square"></i> <span>Entri Menu</span></a></li>
+    <li><a class="nav-link" href="/waiter"><i class="far fa-square"></i> <span>Order</span></a></li>
 </ul>
 @endsection
 @section('content')
@@ -12,36 +12,46 @@
         <h1>Edit Menu</h1>
     </div>
     <div class="section-body">
-        <form method="POST" action="/waiter/{{$masakan->id_masakan}}">
-            {{-- @method('put') --}}
+        <form method="POST" action="/waiter/{{$detail_order->id_detail_order}}">
+            @method('put')
+            {{-- <input type="hidden" name="_method" value="PUT"> --}}
             @csrf
             <div class="form-group">
+                <label for="no_meja">No Meja</label>
+                <select id="id_order" class="form-control" name="id_order" required>
+                    @foreach ($order as $key=>$ord)
+                        <option value="{{$key}}" @if (!empty($detail_order) && $detail_order->id_order==$key ) selected @endif>{{$ord}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="nama_masakan">Nama Masakan</label>
-                <input type="text" class="form-control @error('nama_masakan') is-invalid @enderror" id="nama_masakan"
-                    placeholder="Masukkan Nama Masakan" name="nama_masakan" value="{{ $masakan->nama_masakan }}">
-                {{-- @error('nama_masakan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-            @enderror --}}
-    </div>
-    <div class="form-group">
-        <label for="harga">Harga</label>
-        <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga"
-            placeholder="Masukkan Harga" name="harga" value="{{ $masakan-> harga }}">
-        {{-- @error('harga')
-                        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror --}}
-    </div>
-    <div class="form-group">
-        <label for="status_masakan">Status Masakan</label>
-        <input type="text" class="form-control @error('status_masakan') is-invalid @enderror" id="status_masakan"
-            placeholder="Masukkan Status Masakan" name="status_masakan" value="{{ $masakan->status_masakan }}">
-        {{-- @error('status_masakan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror --}}
-    </div>
-    <button type="submit" class="btn btn-primary">Edit Data!</button>
-    </form>
+                <select id="id_masakan" class="form-control" name="id_masakan" required>
+                    @foreach ($masakan as $key=>$msk)
+                    <option value="{{$key}}" @if (!empty($detail_order) && $detail_order->id_masakan==$key ) selected @endif>{{$msk}}</option>
+                    @endforeach
+                </select>
+            </div>        
+            <div class="form-group">
+                <label for="keterangan">Keterangan</label>
+                <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
+                    placeholder="Masukkan Harga" name="keterangan" value="{{ $detail_order->keterangan }}">
+            </div>
+            <div class="form-group">
+                <label for="status_detail_order">Status Detail Order</label>
+                <input type="text" class="form-control @error('status_detail_order') is-invalid @enderror" id="status_detail_order"
+                    placeholder="Masukkan Status Masakan" name="status_detail_order" value="{{ $detail_order->status_detail_order }}">
 
-    </div>
+            </div>
+            <div class="form-group">
+                <label for="stok">QTY</label>
+                <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok"
+                    placeholder="Masukkan Status Masakan" name="stok" value="{{ $detail_order->stok }}">
+
+            </div>
+            <button type="submit" class="btn btn-primary">Edit Data!</button>
+            </form>
+
+            </div>
 </section>
 @endsection

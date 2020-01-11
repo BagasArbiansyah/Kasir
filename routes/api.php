@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::middleware(['checkIp'])->group(function () {
+// });
+Route::get('masakan', 'ApiMasakanController@index');
+Route::post('masakan', 'ApiMasakanController@create');
+Route::put('/masakan/{id}', 'ApiMasakanController@update');
+Route::delete('/masakan/{id}', 'ApiMasakanController@destroy');

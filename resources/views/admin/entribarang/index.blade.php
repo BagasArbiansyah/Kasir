@@ -24,6 +24,7 @@
                       <th scope="col">Menu Masakan</th>
                       <th scope="col">Harga</th>
                       <th scope="col">Status Makanan</th>
+                      <th scope="col">Stok</th>
                       <th scope="col">Aksi</th>
                     </thead>
                   <tbody>
@@ -33,6 +34,7 @@
                       <td>{{ $msk->nama_masakan }}</td>    
                       <td>{{ $msk->harga }}</td>
                       <td>{{ $msk->status_masakan }}</td>
+                      <td>{{ $msk->stok }}</td>
                       <td>
                         <a href="/admin/entribarang/{{ $msk->id_masakan }}/edit" class="btn btn-success">Edit</a>    
                         <form action="/admin/entribarang/{{ $msk->id_masakan }} " method="post" class="d-inline">

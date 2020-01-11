@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-class OwnerController extends Controller
+use App\Order;
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,9 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        return view ('owner/index');
+        $order = Order::All();
+        return view ('admin/entrimeja/index', compact('order'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +23,7 @@ class OwnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/entrimeja/create');
     }
 
     /**
@@ -34,7 +34,16 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ords = new \App\Order;
+        $ords->no_meja = $request->no_meja;
+        $ords->tanggal = $request->tanggal;
+        $ords->id_user = 1;
+        $ords->keterangan = $request->keterangan;
+        $ords->status_order = $request->status_order;
+        $ords->save();
+
+        return redirect('/admin');
+
     }
 
     /**
@@ -54,9 +63,10 @@ class OwnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_order)
     {
-        //
+        $order = Order::find($id_order);
+        return view('admin/entrimeja/edit', compact('order'));
     }
 
     /**
@@ -66,9 +76,16 @@ class OwnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Order $order)
     {
-        //
+        Order::where('id_order', $order->id_order)
+        ->update([
+            'no_meja' => $request->no_meja,
+            'tanggal' => $request->tanggal,
+            'keterangan' => $request->keterangan,
+            'status_order' => $request->status_order
+        ]);
+        return redirect('admin');
     }
 
     /**
@@ -77,8 +94,9 @@ class OwnerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        Order::destroy($order->id_order);
+        return redirect('/admin');
     }
 }

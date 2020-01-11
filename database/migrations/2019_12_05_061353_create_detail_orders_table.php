@@ -19,6 +19,7 @@ class CreateDetailOrdersTable extends Migration
             $table->unsignedBigInteger('id_masakan');
             $table->string('keterangan');
             $table->string('status_detail_order');
+            $table->integer('stok');
             $table->timestamps();
 
             $table->foreign('id_order')->references('id_order')->on('orders');

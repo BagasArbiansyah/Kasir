@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Order;
 use App\Masakan;
-use App\DetailOrder;
-use App\Transaksi;
-use Illuminate\Support\Facades\DB;
-class OrderController extends Controller
+class Admin2Controller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +14,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $detail_order = DB::table('detail_orders')
-        ->join('orders', 'orders.id_order', 'orders.id_order')
-        ->join('masakans', 'masakans.id_masakan', 'masakans.id_masakan')
-        ->select('orders.*','detail_orders.*','masakans.*')
-        ->get();       
-        // return response()->json($detail_order);
-        return view('waiter/order/index', compact('detail_order'));
+        $masakan = Masakan::All();
+        return view ('admin/entribarang/index', compact('masakan'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -33,11 +25,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        // $order = Order::All();
-        // $masakan = Masakan::All();
-        // $detail_order = DetailOrder::All();
-    //    , compact('order', 'masakan', 'detail_order')
-        return view('waiter/order/create');
+        return view('admin/entribarang/create');
     }
 
     /**
@@ -52,9 +40,10 @@ class OrderController extends Controller
         $mskn->nama_masakan = $request->nama_masakan;
         $mskn->harga = $request->harga;
         $mskn->status_masakan = $request->status_masakan;
+        $mskn->stok = $request->stok;
         $mskn->save();
 
-        return redirect('/waiter/order');
+        return redirect('/admin/entribarang');
     }
 
     /**
@@ -74,9 +63,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_masakan)
     {
-        //
+        $masakan = Masakan::find($id_masakan);
+        return view('admin/entribarang/edit', compact('masakan'));
     }
 
     /**
@@ -86,9 +76,16 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Masakan $masakan)
     {
-        //
+        Masakan::where('id_masakan', $masakan->id_masakan)
+        ->update([
+            'nama_masakan' => $request->nama_masakan,
+            'harga' => $request->harga,
+            'status_masakan' => $request->status_masakan,
+            'stok' => $request->stok,
+        ]);
+        return redirect('admin/entribarang');
     }
 
     /**
@@ -97,8 +94,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Masakan $masakan)
     {
-        //
+        Masakan::destroy($masakan->id_masakan);
+        return redirect('/admin/entribarang');
     }
 }

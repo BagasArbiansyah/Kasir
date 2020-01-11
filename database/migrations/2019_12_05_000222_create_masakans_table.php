@@ -18,6 +18,7 @@ class CreateMasakansTable extends Migration
             $table->string('nama_masakan'); 
             $table->integer('harga');
             $table->string('status_masakan'); 
+            $table->integer('stok');
             $table->timestamps();
         });
     }

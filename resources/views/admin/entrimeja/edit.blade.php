@@ -20,39 +20,39 @@
             @csrf
             <div class="form-group">
                 <label for="no_meja">No Meja</label>
-                <input type="text" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja"
+                <input type="number" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja"
                     placeholder="Masukkan No Meja" name="no_meja" value="{{ $order->no_meja }}">
                 {{-- @error('no_meja')
                         <div class="invalid-feedback">{{ $message }}</div>
             @enderror --}}
-    </div>
-    <div class="form-group">
-        <label for="tanggal">Tanggal</label>
-        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
-            placeholder="Masukkan Tanggal" name="tanggal" value="{{ $order-> tanggal }}">
-        {{-- @error('tanggal')
-                        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror --}}
-    </div>
-    <div class="form-group">
-        <label for="keterangan">Keterangan</label>
-        <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
-            placeholder="Masukkan Keterangan" name="keterangan" value="{{ $order-> keterangan }}">
-        {{-- @error('keterangan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror --}}
-    </div>
-    <div class="form-group">
-        <label for="status_order">Status Order</label>
-        <input type="text" class="form-control @error('status_order') is-invalid @enderror" id="status_order"
-            placeholder="Masukkan Status Order" name="status_order" value="{{ $order->status_order }}">
-        {{-- @error('status_order')
-                        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror --}}
-    </div>
-    <button type="submit" class="btn btn-primary">Edit Data!</button>
-    </form>
+            </div>
+            <div class="form-group">
+                <label for="tanggal">Tanggal</label>
+                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
+                    placeholder="Masukkan Tanggal" name="tanggal" value="{{ $order->tanggal }}">
+                {{-- @error('tanggal')
+                                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror --}}
+            </div>
+            <div class="form-group">
+                <label for="keterangan">Keterangan</label>
+                <input type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
+                    placeholder="Masukkan Keterangan" name="keterangan" value="{{ $order->keterangan }}">
+                {{-- @error('keterangan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror --}}
+            </div>
+            <div class="form-group">
+                <label for="status_order">Status Order</label>
+                <input type="text" class="form-control @error('status_order') is-invalid @enderror" id="status_order"
+                    placeholder="Masukkan Status Order" name="status_order" value="{{ $order->status_order }}">
+                {{-- @error('status_order')
+                                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror --}}
+            </div>
+            <button type="submit" class="btn btn-primary">Edit Data!</button>
+            </form>
 
-    </div>
-</section>
-@endsection
+            </div>
+        </section>
+        @endsection

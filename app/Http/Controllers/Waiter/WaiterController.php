@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Waiter;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Masakan;
+use App\Order;
+use DB;
+use App\DetailOrder;
 class WaiterController extends Controller
 {
     /**
@@ -13,8 +17,13 @@ class WaiterController extends Controller
      */
     public function index()
     {
-        $masakan = Masakan::All();
-        return view ('waiter/index', compact('masakan'));
+        // $masakan = Masakan::All();
+        $detail_order = DB::table('detail_orders')
+        ->join('orders', 'detail_orders.id_order', 'orders.id_order')
+        ->join('masakans', 'detail_orders.id_masakan', 'masakans.id_masakan')
+        ->select('orders.no_meja','masakans.harga','detail_orders.*','masakans.nama_masakan')
+        ->get(); 
+        return view ('waiter/index', compact('detail_order'));
     }
 
     /**
@@ -24,7 +33,10 @@ class WaiterController extends Controller
      */
     public function create()
     {
-        return view('waiter/create');
+        $order = Order::pluck('no_meja', 'id_order');
+        $masakan = Masakan::pluck('nama_masakan', 'id_masakan');
+        return view('waiter/create', compact('order', 'masakan'));
+        // return view('waiter/create');
     }
 
     /**
@@ -35,12 +47,8 @@ class WaiterController extends Controller
      */
     public function store(Request $request)
     {
-        $mskn = new \App\Masakan;
-        $mskn->nama_masakan = $request->nama_masakan;
-        $mskn->harga = $request->harga;
-        $mskn->status_masakan = $request->status_masakan;
-        $mskn->save();
-
+        DetailOrder::create($request->all());
+     
         return redirect('waiter');
     }
 
@@ -61,10 +69,14 @@ class WaiterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_masakan)
+    public function edit($id)
     {
-        $masakan = Masakan::find($id_masakan);
-        return view('waiter/edit', compact('masakan'));
+        
+        $order = Order::pluck('no_meja', 'id_order');
+        $masakan = Masakan::pluck('nama_masakan', 'id_masakan');
+        // $detail = DetailOrder::all();
+        $detail_order = DetailOrder::find($id);
+        return view('waiter/edit', compact('detail_order', 'order', 'masakan', 'detail'));
     }
 
     /**
@@ -74,14 +86,10 @@ class WaiterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Masakan $masakan)
+    public function update(Request $request, $id)
     {
-        Masakan::where('id_masakan', $masakan->id_masakan)
-        ->update([
-            'nama_masakan' => $request->nama_masakan,
-            'harga' => $request->harga,
-            'status_masakan' => $request->status_masakan
-        ]);
+        $data = DetailOrder::find($id);
+        $update = $data->update($request->all());
         return redirect('waiter');
     }
 
@@ -91,9 +99,9 @@ class WaiterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Masakan $masakan)
+    public function destroy($id)
     {
-        Masakan::destroy($masakan->id_masakan);
+        DetailOrder::destroy($id);
         return redirect('waiter');
     }
 }

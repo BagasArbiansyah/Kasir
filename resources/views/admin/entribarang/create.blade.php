@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="harga">Harga</label>
-                            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" placeholder="Masukkan Harga" name="harga" value="{{ old('harga')}}">
+                            <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" placeholder="Masukkan Harga" name="harga" value="{{ old('harga')}}">
                             {{-- @error('harga')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror --}}
@@ -35,6 +35,13 @@
                             <label for="status_masakan">Status Masakan</label>
                             <input type="text" class="form-control @error('status_masakan') is-invalid @enderror" id="status_masakan" placeholder="Masukkan Status Masakan" name="status_masakan" value="{{ old('status_masakan')}}">
                             {{-- @error('status_masakan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror --}}
+                        </div>
+                        <div class="form-group">
+                            <label for="stok">Stok</label>
+                            <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok" placeholder="Masukkan Stok" name="stok" value="{{ old('stok')}}">
+                            {{-- @error('stok')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror --}}
                         </div>

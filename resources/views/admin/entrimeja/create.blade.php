@@ -19,7 +19,7 @@
                     @csrf
                         <div class="form-group">
                             <label for="no_meja">No Meja</label>
-                            <input type="text" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" placeholder="Masukkan No Meja" name="no_meja" value="{{ old('no_meja')}}">
+                            <input type="number" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" placeholder="Masukkan No Meja" name="no_meja" value="{{ old('no_meja')}}">
                             {{-- @error('no_meja')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror --}}

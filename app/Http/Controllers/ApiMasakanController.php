@@ -1,37 +1,38 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Masakan;
-use App\Transaksi;
-use App\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-class KasirController extends Controller
+
+class ApiMasakanController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $masakan = Masakan::pluck('nama_masakan', 'harga');
-        // dd($masakan);
-        $transaksi = Transaksi::All();
-        // $transaksi = DB::table('transaksis')
-        // ->join('orders', 'transaksis.id_transaksi', '=', 'orders.id_order')
-        // ->select('transaksis.*', 'orders.no_meja')
-        // ->get();
-        return view('kasir/index', ['transaksi' => $transaksi]);
+        $masakan = Masakan::all(); 
+        $data= ['masakan'=>$masakan];
+        return $data;
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $mskn = new \App\Masakan;
+        $mskn->nama_masakan = $request->nama_masakan;
+        $mskn->harga = $request->harga;
+        $mskn->status_masakan = $request->status_masakan;
+        $mskn->save();
+
+        return 'Data Berhasil Masuk';
     }
 
     /**
@@ -48,10 +49,10 @@ class KasirController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ApiMasakan  $apiMasakan
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ApiMasakan $apiMasakan)
     {
         //
     }
@@ -59,10 +60,10 @@ class KasirController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ApiMasakan  $apiMasakan
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ApiMasakan $apiMasakan)
     {
         //
     }
@@ -71,22 +72,31 @@ class KasirController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\ApiMasakan  $apiMasakan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $mskn = Masakan::find($id);
+        $mskn->nama_masakan = $request->nama_masakan;
+        $mskn->harga = $request->harga;
+        $mskn->status_masakan = $request->status_masakan;
+        $mskn->save();
+
+        return 'Data Berhasil Di Update';
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\ApiMasakan  $apiMasakan
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+         $mskn = Masakan::find($id);
+         $mskn->delete();
+
+         return 'Data Berhasil Di hapus';
     }
 }
